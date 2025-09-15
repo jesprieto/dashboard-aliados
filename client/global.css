@@ -60,6 +60,9 @@
 
     /* Brand utility colors */
     --jonquil: 49 100% 50%; /* #ffd100 */
+    --aureolin: 56 100% 60%; /* #ffee32 */
+    --timberwolf: 0 0% 84%; /* #d6d6d6 */
+    --eerie-black: 0 0% 13%; /* #202020 */
     --jet: 120 3% 20%; /* #333533 approx in HSL */
   }
 
