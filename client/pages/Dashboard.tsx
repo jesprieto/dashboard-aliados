@@ -232,9 +232,12 @@ export default function Dashboard() {
   return (
     <main className="min-h-[calc(100vh-4rem)]">
       <section className="mx-auto max-w-6xl px-4 py-10">
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-jonquil">
-          Plataforma de Aliados Synergy
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-black">
+          Dashboard de Aliados Synergy.
         </h1>
+        <div className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-black">
+          <p><strong>Dashboard </strong>de Aliados Synergy.</p>
+        </div>
         <p className="text-sm text-gray-600 mb-6">Panel de control y actividad</p>
 
         {!hasSupabaseConfig ? (
@@ -263,6 +266,24 @@ export default function Dashboard() {
           </div>
           <Link to="/perfil" className="inline-flex items-center rounded-xl border px-4 py-2 font-semibold hover:bg-gray-50">Editar perfil</Link>
         </div>
+
+        {/* Buscar miembro */}
+        <h2 className="text-2xl font-extrabold tracking-tight mb-2">Buscar miembro</h2>
+        <form onSubmit={onSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end bg-white p-4 rounded-2xl border shadow-sm mb-6">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Nombre</label>
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre exacto" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Correo</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Teléfono</label>
+            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="5551234567" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          </div>
+          <button type="submit" className="h-11 rounded-xl bg-jonquil text-black font-semibold hover:brightness-95 transition-colors" disabled={loading}>{loading ? "Buscando..." : "Buscar"}</button>
+        </form>
 
         {/* KPIs */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -338,22 +359,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Buscador de miembros (exacto) */}
-        <form onSubmit={onSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end bg-white p-4 rounded-2xl border shadow-sm">
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Nombre</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre exacto" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Correo</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Teléfono</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="5551234567" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
-          </div>
-          <button type="submit" className="h-11 rounded-xl bg-jonquil text-black font-semibold hover:brightness-95 transition-colors" disabled={loading}>{loading ? "Buscando..." : "Buscar"}</button>
-        </form>
         {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
 
         {/* Listado de validaciones */}
