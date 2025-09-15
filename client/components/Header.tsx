@@ -1,10 +1,19 @@
 import { useAuth } from "@/lib/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { loadProfile } from "@/lib/profile";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const { user, signOut, ready } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [avatar, setAvatar] = useState<string | null>(null);
+  const [name, setName] = useState<string>("S");
+  useEffect(() => {
+    const p = loadProfile();
+    setAvatar(p.avatarDataUrl);
+    setName(p.businessName || "S");
+  }, [location.pathname]);
   const onLogout = async () => {
     await signOut();
     if (location.pathname !== "/") navigate("/");
@@ -21,6 +30,16 @@ export default function Header() {
           </span>
         </Link>
         <div className="flex items-center gap-3">
+          <Link to="/perfil" className="flex items-center gap-2">
+            {avatar ? (
+              <img src={avatar} alt="Avatar" className="h-8 w-8 rounded-full object-cover border" />
+            ) : (
+              <div className="h-8 w-8 rounded-full bg-gray-900 text-white grid place-items-center text-xs font-bold">
+                {name.charAt(0)}
+              </div>
+            )}
+            <span className="hidden sm:inline text-sm font-semibold">Perfil</span>
+          </Link>
           {ready && user ? (
             <button
               onClick={onLogout}
