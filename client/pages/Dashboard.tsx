@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase, hasSupabaseConfig } from "@/lib/supabase";
 import { differenceInCalendarDays, format } from "date-fns";
+import { loadProfile } from "@/lib/profile";
+import { Link } from "react-router-dom";
 
 interface Member {
   full_name: string | null;
@@ -40,6 +42,11 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<Member[]>([]);
+  const [ally, setAlly] = useState(loadProfile());
+
+  useEffect(() => {
+    setAlly(loadProfile());
+  }, []);
 
   useEffect(() => {
     setResults([]);
@@ -116,6 +123,28 @@ export default function Dashboard() {
             Modo demo activo: sin conexión a base de datos. Los resultados se muestran con datos simulados.
           </div>
         ) : null}
+
+        <div className="mb-6 rounded-2xl border bg-white p-4 shadow-sm flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            {ally.avatarDataUrl ? (
+              <img src={ally.avatarDataUrl} alt="Avatar del comercio" className="h-14 w-14 rounded-xl object-cover border" />
+            ) : (
+              <div className="h-14 w-14 rounded-xl bg-gray-100 border grid place-items-center text-xl font-bold text-gray-500">
+                {(ally.businessName || "A").charAt(0)}
+              </div>
+            )}
+            <div>
+              <p className="text-xs uppercase tracking-wide text-gray-500">Mi comercio</p>
+              <p className="text-lg font-semibold">{ally.businessName || "Aliado Synergy"}</p>
+              {ally.contactNumber ? (
+                <p className="text-sm text-gray-600">{ally.contactNumber}</p>
+              ) : null}
+            </div>
+          </div>
+          <Link to="/perfil" className="inline-flex items-center rounded-xl border px-4 py-2 font-semibold hover:bg-gray-50">
+            Editar perfil
+          </Link>
+        </div>
         <form
           onSubmit={onSearch}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end bg-white p-4 rounded-2xl border shadow-sm"
