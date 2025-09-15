@@ -59,6 +59,9 @@ export default {
         },
         jonquil: "hsl(var(--jonquil))",
         jet: "hsl(var(--jet))",
+        aureolin: "hsl(var(--aureolin))",
+        timberwolf: "hsl(var(--timberwolf))",
+        eerie: "hsl(var(--eerie-black))",
       },
       borderRadius: {
         lg: "var(--radius)",
