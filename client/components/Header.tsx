@@ -25,7 +25,7 @@ export default function Header() {
           <div className="h-9 w-9 rounded-xl bg-jonquil/90 grid place-items-center text-black font-bold">
             S
           </div>
-          <span className="text-lg sm:text-xl font-extrabold tracking-tight">
+          <span className="text-lg sm:text-xl font-extrabold tracking-tight text-jonquil">
             Plataforma de Aliados Synergy
           </span>
         </Link>
