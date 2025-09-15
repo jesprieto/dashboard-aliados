@@ -39,9 +39,17 @@ export default function Index() {
                 Dashboard de Aliados.
               </p>
               {!ready ? (
-                <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-                  Conecta Supabase y configura VITE_SUPABASE_URL y
-                  VITE_SUPABASE_ANON_KEY para habilitar el inicio de sesión.
+                <div className="mt-6 space-y-3">
+                  <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+                    Conecta Supabase y configura VITE_SUPABASE_URL y
+                    VITE_SUPABASE_ANON_KEY para habilitar el inicio de sesión.
+                  </div>
+                  <a
+                    href="/dashboard"
+                    className="inline-flex items-center justify-center rounded-xl bg-jonquil text-black font-semibold px-5 py-3"
+                  >
+                    Ver demo del Dashboard
+                  </a>
                 </div>
               ) : null}
             </div>
