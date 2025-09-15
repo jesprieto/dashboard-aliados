@@ -13,8 +13,12 @@ export default function Header() {
     <header className="sticky top-0 z-20 w-full border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl bg-jonquil/90 grid place-items-center text-black font-bold">S</div>
-          <span className="text-lg sm:text-xl font-extrabold tracking-tight">Plataforma de Aliados Synergy</span>
+          <div className="h-9 w-9 rounded-xl bg-jonquil/90 grid place-items-center text-black font-bold">
+            S
+          </div>
+          <span className="text-lg sm:text-xl font-extrabold tracking-tight">
+            Plataforma de Aliados Synergy
+          </span>
         </Link>
         <div className="flex items-center gap-3">
           {ready && user ? (

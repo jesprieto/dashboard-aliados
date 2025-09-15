@@ -35,9 +35,9 @@ export default function Dashboard() {
     }
     setLoading(true);
     try {
-      let query = supabase.from("members").select(
-        "full_name,email,phone,membership_expires_at,expiration_date",
-      );
+      let query = supabase
+        .from("members")
+        .select("full_name,email,phone,membership_expires_at,expiration_date");
       if (name) query = query.eq("full_name", name);
       if (email) query = query.eq("email", email);
       if (phone) query = query.eq("phone", phone);
@@ -61,7 +61,12 @@ export default function Dashboard() {
 
   function getStatus(member: Member) {
     const d = getExpiry(member);
-    if (!d) return { label: "Desconocido", expired: false, days: null as number | null };
+    if (!d)
+      return {
+        label: "Desconocido",
+        expired: false,
+        days: null as number | null,
+      };
     const now = new Date();
     const days = differenceInCalendarDays(d, now);
     const expired = days < 0;
@@ -71,8 +76,13 @@ export default function Dashboard() {
   return (
     <main className="min-h-[calc(100vh-4rem)]">
       <section className="mx-auto max-w-5xl px-4 py-10">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-6">Dashboard de Aliados</h1>
-        <form onSubmit={onSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end bg-white p-4 rounded-2xl border shadow-sm">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-6">
+          Dashboard de Aliados
+        </h1>
+        <form
+          onSubmit={onSearch}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end bg-white p-4 rounded-2xl border shadow-sm"
+        >
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-700">Nombre</label>
             <input
@@ -93,7 +103,9 @@ export default function Dashboard() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Teléfono</label>
+            <label className="text-sm font-medium text-gray-700">
+              Teléfono
+            </label>
             <input
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -109,21 +121,28 @@ export default function Dashboard() {
             {loading ? "Buscando..." : "Buscar"}
           </button>
         </form>
-        {error ? (
-          <p className="mt-4 text-sm text-red-600">{error}</p>
-        ) : null}
+        {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
           {results.map((m, idx) => {
             const exp = getExpiry(m);
             const status = getStatus(m);
             return (
-              <div key={idx} className="rounded-2xl border bg-white p-5 shadow-sm">
+              <div
+                key={idx}
+                className="rounded-2xl border bg-white p-5 shadow-sm"
+              >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h3 className="text-lg font-bold">{m.full_name || "Sin nombre"}</h3>
-                    <p className="text-sm text-gray-600">{m.email || "Sin correo"}</p>
-                    <p className="text-sm text-gray-600">{m.phone || "Sin teléfono"}</p>
+                    <h3 className="text-lg font-bold">
+                      {m.full_name || "Sin nombre"}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {m.email || "Sin correo"}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      {m.phone || "Sin teléfono"}
+                    </p>
                   </div>
                   <span
                     className={
@@ -138,14 +157,22 @@ export default function Dashboard() {
                 </div>
                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                   <div className="rounded-xl bg-gray-50 border p-3">
-                    <span className="block text-gray-500">Fecha de expiración</span>
+                    <span className="block text-gray-500">
+                      Fecha de expiración
+                    </span>
                     <span className="font-medium">
                       {exp ? format(exp, "dd/MM/yyyy HH:mm") : "No disponible"}
                     </span>
                   </div>
                   <div className="rounded-xl bg-gray-50 border p-3">
-                    <span className="block text-gray-500">Días para expirar</span>
-                    <span className={"font-medium " + (status.expired ? "text-red-600" : "") }>
+                    <span className="block text-gray-500">
+                      Días para expirar
+                    </span>
+                    <span
+                      className={
+                        "font-medium " + (status.expired ? "text-red-600" : "")
+                      }
+                    >
                       {status.days === null ? "-" : Math.abs(status.days)}
                     </span>
                   </div>
@@ -161,7 +188,9 @@ export default function Dashboard() {
         </div>
 
         {!results.length && !error ? (
-          <p className="mt-6 text-sm text-gray-500">No hay resultados para mostrar.</p>
+          <p className="mt-6 text-sm text-gray-500">
+            No hay resultados para mostrar.
+          </p>
         ) : null}
       </section>
     </main>

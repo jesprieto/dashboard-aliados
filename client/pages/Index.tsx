@@ -40,14 +40,20 @@ export default function Index() {
               </p>
               {!ready ? (
                 <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-                  Conecta Supabase y configura VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY para habilitar el inicio de sesión.
+                  Conecta Supabase y configura VITE_SUPABASE_URL y
+                  VITE_SUPABASE_ANON_KEY para habilitar el inicio de sesión.
                 </div>
               ) : null}
             </div>
-            <form onSubmit={onSubmit} className="bg-white rounded-2xl border shadow-sm p-6">
+            <form
+              onSubmit={onSubmit}
+              className="bg-white rounded-2xl border shadow-sm p-6"
+            >
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Correo</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    Correo
+                  </label>
                   <input
                     type="email"
                     value={email}
@@ -57,7 +63,9 @@ export default function Index() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Contraseña</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    Contraseña
+                  </label>
                   <input
                     type="password"
                     value={password}
@@ -87,10 +95,13 @@ export default function Index() {
 
       <section className="mx-auto max-w-6xl px-4 py-14">
         <div className="rounded-3xl border bg-white p-8 md:p-12 shadow-sm">
-          <h2 className="text-2xl font-extrabold tracking-tight">Construimos comunidad juntos</h2>
+          <h2 className="text-2xl font-extrabold tracking-tight">
+            Construimos comunidad juntos
+          </h2>
           <p className="mt-3 text-gray-600 text-lg">
-            Los aliados de Synergy impulsan conexiones reales y crecimiento sostenible.
-            Tu participación fortalece la red y multiplica el impacto.
+            Los aliados de Synergy impulsan conexiones reales y crecimiento
+            sostenible. Tu participación fortalece la red y multiplica el
+            impacto.
           </p>
           <div className="mt-6 inline-flex items-center gap-3 rounded-full bg-jonquil text-black px-5 py-3 font-semibold">
             Unidos por la colaboración

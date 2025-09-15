@@ -1,4 +1,11 @@
-import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Session, User } from "@supabase/supabase-js";
 import { hasSupabaseConfig, supabase } from "./supabase";
 
@@ -29,9 +36,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
       } = await supabase.auth.getSession();
       setSession(session);
       setLoading(false);
-      const { data: listener } = supabase.auth.onAuthStateChange((_event, s) => {
-        setSession(s);
-      });
+      const { data: listener } = supabase.auth.onAuthStateChange(
+        (_event, s) => {
+          setSession(s);
+        },
+      );
       unsub = listener.subscription.unsubscribe.bind(listener.subscription);
     }
     init();
@@ -47,8 +56,12 @@ export function AuthProvider({ children }: PropsWithChildren) {
       loading,
       ready: hasSupabaseConfig,
       async signIn(email: string, password: string) {
-        if (!hasSupabaseConfig) return { error: "Supabase no está configurado" };
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (!hasSupabaseConfig)
+          return { error: "Supabase no está configurado" };
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
         return { error: error?.message };
       },
       async signOut() {
