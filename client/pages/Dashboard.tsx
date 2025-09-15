@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { supabase, hasSupabaseConfig } from "@/lib/supabase";
 import { differenceInCalendarDays, format } from "date-fns";
 
 interface Member {
@@ -10,6 +10,27 @@ interface Member {
   membership_expires_at?: string | null;
   expiration_date?: string | null; // fallback naming
 }
+
+const MOCK: Member[] = [
+  {
+    full_name: "Ana López",
+    email: "ana@example.com",
+    phone: "5551112233",
+    membership_expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15).toISOString(),
+  },
+  {
+    full_name: "Carlos Pérez",
+    email: "carlos@example.com",
+    phone: "5559998877",
+    membership_expires_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(),
+  },
+  {
+    full_name: "María García",
+    email: "maria@example.com",
+    phone: "5552223344",
+    membership_expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 45).toISOString(),
+  },
+];
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -35,15 +56,26 @@ export default function Dashboard() {
     }
     setLoading(true);
     try {
-      let query = supabase
-        .from("members")
-        .select("full_name,email,phone,membership_expires_at,expiration_date");
-      if (name) query = query.eq("full_name", name);
-      if (email) query = query.eq("email", email);
-      if (phone) query = query.eq("phone", phone);
-      const { data, error } = await query;
-      if (error) throw error;
-      setResults(data ?? []);
+      if (!hasSupabaseConfig) {
+        const filtered = MOCK.filter((m) => {
+          const okName = name ? m.full_name === name : true;
+          const okEmail = email ? m.email === email : true;
+          const okPhone = phone ? m.phone === phone : true;
+          return okName && okEmail && okPhone;
+        });
+        await new Promise((r) => setTimeout(r, 400));
+        setResults(filtered);
+      } else {
+        let query = supabase
+          .from("members")
+          .select("full_name,email,phone,membership_expires_at,expiration_date");
+        if (name) query = query.eq("full_name", name);
+        if (email) query = query.eq("email", email);
+        if (phone) query = query.eq("phone", phone);
+        const { data, error } = await query;
+        if (error) throw error;
+        setResults(data ?? []);
+      }
     } catch (err: any) {
       setError(err.message ?? "Error en la búsqueda");
     } finally {
@@ -79,6 +111,11 @@ export default function Dashboard() {
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-6">
           Dashboard de Aliados
         </h1>
+        {!hasSupabaseConfig ? (
+          <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+            Modo demo activo: sin conexión a base de datos. Los resultados se muestran con datos simulados.
+          </div>
+        ) : null}
         <form
           onSubmit={onSearch}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end bg-white p-4 rounded-2xl border shadow-sm"
