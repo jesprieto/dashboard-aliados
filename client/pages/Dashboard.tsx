@@ -57,7 +57,12 @@ function buildDemoValidations(): ValidationItem[] {
     d.setHours(9 + Math.floor(Math.random() * 10));
     const name = names[Math.floor(Math.random() * names.length)];
     const visits = Math.floor(Math.random() * 9);
-    const status: ValidationItem["status"] = Math.random() < 0.85 ? "Activo" : Math.random() < 0.5 ? "Expirado" : "Suspendido";
+    const status: ValidationItem["status"] =
+      Math.random() < 0.85
+        ? "Activo"
+        : Math.random() < 0.5
+          ? "Expirado"
+          : "Suspendido";
     out.push({
       id: `${i}`,
       member: name,
@@ -105,7 +110,9 @@ export default function Dashboard() {
         // Demo: filter by exact fields against mock members list derived from validations
         const uniqueMembers = Array.from(
           new Set(demoData.map((d) => d.member)),
-        ).map((full_name) => ({ full_name, email: null, phone: null } as Member));
+        ).map(
+          (full_name) => ({ full_name, email: null, phone: null }) as Member,
+        );
         const filtered = uniqueMembers.filter((m) => {
           const okName = name ? m.full_name === name : true;
           const okEmail = email ? m.email === email : true;
@@ -167,7 +174,7 @@ export default function Dashboard() {
     });
     const total = monthData.length;
     const unique = new Set(monthData.map((d) => d.member)).size;
-    const avgPerMember = unique ? (total / unique) : 0;
+    const avgPerMember = unique ? total / unique : 0;
     return {
       total,
       unique,
@@ -224,9 +231,7 @@ export default function Dashboard() {
   const comparison = useMemo(() => {
     const mine = kpis.total;
     const others = Math.round(mine * (0.7 + Math.random() * 0.6));
-    return [
-      { name: "Este mes", Yo: mine, Promedio: others },
-    ];
+    return [{ name: "Este mes", Yo: mine, Promedio: others }];
   }, [kpis.total]);
 
   return (
@@ -236,13 +241,18 @@ export default function Dashboard() {
           Dashboard de Aliados Synergy.
         </h1>
         <div className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 text-black">
-          <p><strong>Dashboard </strong>de Aliados Synergy.</p>
+          <p>
+            <strong>Dashboard </strong>de Aliados Synergy.
+          </p>
         </div>
-        <p className="text-sm text-gray-600 mb-6">Panel de control y actividad</p>
+        <p className="text-sm text-gray-600 mb-6">
+          Panel de control y actividad
+        </p>
 
         {!hasSupabaseConfig ? (
           <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-            Modo demo activo: sin conexión a base de datos. Los resultados se muestran con datos simulados.
+            Modo demo activo: sin conexión a base de datos. Los resultados se
+            muestran con datos simulados.
           </div>
         ) : null}
 
@@ -250,42 +260,82 @@ export default function Dashboard() {
         <div className="mb-6 rounded-2xl border bg-white p-4 shadow-sm flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             {ally.avatarDataUrl ? (
-              <img src={ally.avatarDataUrl} alt="Avatar del comercio" className="h-14 w-14 rounded-full object-cover border" />
+              <img
+                src={ally.avatarDataUrl}
+                alt="Avatar del comercio"
+                className="h-14 w-14 rounded-full object-cover border"
+              />
             ) : (
               <div className="h-14 w-14 rounded-full bg-gray-100 border grid place-items-center text-xl font-bold text-gray-500">
                 {(ally.businessName || "A").charAt(0)}
               </div>
             )}
             <div>
-              <p className="text-xs uppercase tracking-wide text-gray-500">Mi comercio</p>
-              <p className="text-lg font-semibold">{ally.businessName || "Aliado Synergy"}</p>
+              <p className="text-xs uppercase tracking-wide text-gray-500">
+                Mi comercio
+              </p>
+              <p className="text-lg font-semibold">
+                {ally.businessName || "Aliado Synergy"}
+              </p>
               {ally.contactNumber ? (
                 <p className="text-sm text-gray-600">{ally.contactNumber}</p>
               ) : null}
             </div>
           </div>
-          <Link to="/perfil" className="inline-flex items-center rounded-xl border px-4 py-2 font-semibold hover:bg-gray-50">Editar perfil</Link>
+          <Link
+            to="/perfil"
+            className="inline-flex items-center rounded-xl border px-4 py-2 font-semibold hover:bg-gray-50"
+          >
+            Editar perfil
+          </Link>
         </div>
 
         {/* Buscar miembro */}
-        <h2 className="text-2xl font-extrabold tracking-tight mb-2">Buscar miembro</h2>
-        <form onSubmit={onSearch} className="flex items-end gap-3 bg-white p-3 rounded-xl border shadow-sm mb-4 overflow-x-auto">
+        <h2 className="text-2xl font-extrabold tracking-tight mb-2">
+          Buscar miembro
+        </h2>
+        <form
+          onSubmit={onSearch}
+          className="flex items-end gap-3 bg-white p-3 rounded-xl border shadow-sm mb-4 overflow-x-auto"
+        >
           <div className="relative flex flex-col gap-1 min-w-[200px]">
             <label className="sr-only">Nombre</label>
             <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre exacto" className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[200px]" />
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Nombre exacto"
+              className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[200px]"
+            />
           </div>
           <div className="relative flex flex-col gap-1 min-w-[220px]">
             <label className="sr-only">Correo</label>
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[220px]" />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="correo@ejemplo.com"
+              className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[220px]"
+            />
           </div>
           <div className="relative flex flex-col gap-1 min-w-[180px]">
             <label className="sr-only">Teléfono</label>
             <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="5551234567" className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[180px]" />
+            <input
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="5551234567"
+              className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[180px]"
+            />
           </div>
-          <button type="submit" className="h-10 rounded-lg bg-jonquil text-black font-semibold px-4 hover:brightness-95 transition-colors whitespace-nowrap" disabled={loading}>{loading ? "Buscando..." : "Buscar"}</button>
+          <button
+            type="submit"
+            className="h-10 rounded-lg bg-jonquil text-black font-semibold px-4 hover:brightness-95 transition-colors whitespace-nowrap"
+            disabled={loading}
+          >
+            {loading ? "Buscando..." : "Buscar"}
+          </button>
         </form>
 
         {/* KPIs */}
@@ -299,7 +349,9 @@ export default function Dashboard() {
             <p className="mt-2 text-2xl font-extrabold">{kpis.unique}</p>
           </div>
           <div className="rounded-2xl border bg-white shadow-sm p-5">
-            <p className="text-sm text-gray-600">Visitas promedio por miembro</p>
+            <p className="text-sm text-gray-600">
+              Visitas promedio por miembro
+            </p>
             <p className="mt-2 text-2xl font-extrabold">{kpis.avg}</p>
           </div>
         </div>
@@ -311,33 +363,63 @@ export default function Dashboard() {
               <p className="mb-4 font-semibold">Validaciones por semana</p>
               <div className="h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={lineData} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
+                  <LineChart
+                    data={lineData}
+                    margin={{ top: 5, right: 10, bottom: 0, left: 0 }}
+                  >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="label" />
                     <YAxis allowDecimals={false} />
                     <Tooltip />
-                    <Line type="monotone" dataKey="count" stroke="hsl(var(--jonquil))" strokeWidth={3} dot={false} />
+                    <Line
+                      type="monotone"
+                      dataKey="count"
+                      stroke="hsl(var(--jonquil))"
+                      strokeWidth={3}
+                      dot={false}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
             </div>
             <div className="rounded-2xl border bg-white shadow-sm p-6">
-              <p className="mb-4 font-semibold">Mapa de calor: Visitas por día y hora</p>
-              <div className="grid" style={{ gridTemplateColumns: `auto repeat(${heatmap.hours.length}, minmax(0, 1fr))` }}>
+              <p className="mb-4 font-semibold">
+                Mapa de calor: Visitas por día y hora
+              </p>
+              <div
+                className="grid"
+                style={{
+                  gridTemplateColumns: `auto repeat(${heatmap.hours.length}, minmax(0, 1fr))`,
+                }}
+              >
                 <div />
                 {heatmap.hours.map((h) => (
-                  <div key={h} className="text-[10px] text-gray-500 text-center">{h}:00</div>
+                  <div
+                    key={h}
+                    className="text-[10px] text-gray-500 text-center"
+                  >
+                    {h}:00
+                  </div>
                 ))}
                 {heatmap.days.map((d, di) => (
                   <>
-                    <div key={`l-${d}`} className="text-xs text-gray-600 pr-2 py-1">{d}</div>
+                    <div
+                      key={`l-${d}`}
+                      className="text-xs text-gray-600 pr-2 py-1"
+                    >
+                      {d}
+                    </div>
                     {heatmap.hours.map((h) => {
                       const key = `${di}-${h}`;
                       const v = heatmap.grid[key] || 0;
                       const intensity = v / heatmap.max; // 0..1
                       const bg = `hsla(49, 100%, ${40 + Math.round(intensity * 35)}%, 1)`; // jonquil scale
                       return (
-                        <div key={key} className="h-6 w-full rounded-md border" style={{ background: v ? bg : "#f5f5f5" }} />
+                        <div
+                          key={key}
+                          className="h-6 w-full rounded-md border"
+                          style={{ background: v ? bg : "#f5f5f5" }}
+                        />
                       );
                     })}
                   </>
@@ -354,8 +436,16 @@ export default function Dashboard() {
                   <XAxis dataKey="name" />
                   <YAxis allowDecimals={false} />
                   <Tooltip />
-                  <Bar dataKey="Yo" fill="hsl(var(--jonquil))" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="Promedio" fill="hsl(var(--aureolin))" radius={[6, 6, 0, 0]} />
+                  <Bar
+                    dataKey="Yo"
+                    fill="hsl(var(--jonquil))"
+                    radius={[6, 6, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="Promedio"
+                    fill="hsl(var(--aureolin))"
+                    radius={[6, 6, 0, 0]}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -369,11 +459,19 @@ export default function Dashboard() {
           {demoData.slice(0, 12).map((v) => {
             const d = new Date(v.date);
             const completed = v.status === "Activo";
-            const rejected = v.status === "Expirado" || v.status === "Suspendido";
+            const rejected =
+              v.status === "Expirado" || v.status === "Suspendido";
             return (
-              <div key={v.id} className="rounded-2xl border bg-white p-5 shadow-sm flex items-center gap-4">
+              <div
+                key={v.id}
+                className="rounded-2xl border bg-white p-5 shadow-sm flex items-center gap-4"
+              >
                 {v.avatar ? (
-                  <img src={v.avatar} alt={v.member} className="h-12 w-12 rounded-full object-cover border" />
+                  <img
+                    src={v.avatar}
+                    alt={v.member}
+                    className="h-12 w-12 rounded-full object-cover border"
+                  />
                 ) : (
                   <div className="h-12 w-12 rounded-full bg-gray-100 border grid place-items-center font-bold text-gray-600">
                     {v.member.charAt(0)}
@@ -383,18 +481,31 @@ export default function Dashboard() {
                   <div className="flex items-center gap-2">
                     <p className="font-semibold truncate">{v.member}</p>
                     {v.weeklyVisits > 5 ? (
-                      <Star className="h-4 w-4" style={{ color: "hsl(var(--aureolin))", fill: "hsl(var(--aureolin))" }} />
+                      <Star
+                        className="h-4 w-4"
+                        style={{
+                          color: "hsl(var(--aureolin))",
+                          fill: "hsl(var(--aureolin))",
+                        }}
+                      />
                     ) : null}
                   </div>
                   <div className="mt-1 flex items-center gap-2 text-sm text-gray-600">
-                    <CalendarDays className="h-4 w-4" style={{ color: "hsl(var(--jonquil))" }} />
+                    <CalendarDays
+                      className="h-4 w-4"
+                      style={{ color: "hsl(var(--jonquil))" }}
+                    />
                     <span>{format(d, "dd/MM/yyyy HH:mm")}</span>
                   </div>
                 </div>
-                <span className={
-                  "shrink-0 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold " +
-                  (completed ? "bg-green-100 text-green-700 border border-green-200" : "bg-jet text-red-200 border border-red-600")
-                }>
+                <span
+                  className={
+                    "shrink-0 inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold " +
+                    (completed
+                      ? "bg-green-100 text-green-700 border border-green-200"
+                      : "bg-jet text-red-200 border border-red-600")
+                  }
+                >
                   {completed ? "Completada" : "Rechazada"}
                 </span>
               </div>
@@ -404,7 +515,9 @@ export default function Dashboard() {
 
         {/* Nota si no hay resultados de búsqueda */}
         {!results.length && !error ? (
-          <p className="mt-6 text-sm text-gray-500">No hay resultados para mostrar.</p>
+          <p className="mt-6 text-sm text-gray-500">
+            No hay resultados para mostrar.
+          </p>
         ) : null}
       </section>
     </main>
