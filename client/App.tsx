@@ -16,8 +16,8 @@ const queryClient = new QueryClient();
 
 function PrivateRoute({ children }: { children: React.ReactElement }) {
   const { user, loading, ready } = useAuth();
-  if (!ready) return <Navigate to="/" replace />; // Require Supabase configured
-  if (loading) return children; // Optionally render while loading
+  if (!ready) return children; // demo mode without auth
+  if (loading) return children;
   return user ? children : <Navigate to="/" replace />;
 }
 
