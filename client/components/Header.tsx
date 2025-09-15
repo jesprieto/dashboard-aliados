@@ -32,13 +32,19 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <Link to="/perfil" className="flex items-center gap-2">
             {avatar ? (
-              <img src={avatar} alt="Avatar" className="h-8 w-8 rounded-full object-cover border" />
+              <img
+                src={avatar}
+                alt="Avatar"
+                className="h-8 w-8 rounded-full object-cover border"
+              />
             ) : (
               <div className="h-8 w-8 rounded-full bg-gray-900 text-white grid place-items-center text-xs font-bold">
                 {name.charAt(0)}
               </div>
             )}
-            <span className="hidden sm:inline text-sm font-semibold">Perfil</span>
+            <span className="hidden sm:inline text-sm font-semibold">
+              Perfil
+            </span>
           </Link>
           {ready && user ? (
             <button

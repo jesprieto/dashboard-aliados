@@ -42,7 +42,9 @@ export default function Profile() {
   return (
     <main className="min-h-[calc(100vh-4rem)]">
       <section className="mx-auto max-w-4xl px-4 py-10">
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-6">Perfil del Aliado</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight mb-6">
+          Perfil del Aliado
+        </h1>
 
         <form onSubmit={onSave} className="space-y-8">
           <div className="rounded-2xl border bg-white shadow-sm p-6 flex flex-col md:flex-row items-start gap-6">
@@ -60,7 +62,9 @@ export default function Profile() {
               )}
             </div>
             <div className="flex-1 w-full">
-              <p className="text-sm text-gray-600 mb-3">Sube una imagen cuadrada para mejores resultados (PNG o JPG).</p>
+              <p className="text-sm text-gray-600 mb-3">
+                Sube una imagen cuadrada para mejores resultados (PNG o JPG).
+              </p>
               <div className="flex flex-wrap items-center gap-3">
                 <button
                   type="button"
@@ -91,19 +95,27 @@ export default function Profile() {
 
           <div className="rounded-2xl border bg-white shadow-sm p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="text-sm font-medium text-gray-700">Nombre del comercio</label>
+              <label className="text-sm font-medium text-gray-700">
+                Nombre del comercio
+              </label>
               <input
                 value={profile.businessName}
-                onChange={(e) => setProfile((p) => ({ ...p, businessName: e.target.value }))}
+                onChange={(e) =>
+                  setProfile((p) => ({ ...p, businessName: e.target.value }))
+                }
                 placeholder="Ej. Café Synergy"
                 className="mt-1 h-11 w-full rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60"
               />
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700">Número de contacto</label>
+              <label className="text-sm font-medium text-gray-700">
+                Número de contacto
+              </label>
               <input
                 value={profile.contactNumber}
-                onChange={(e) => setProfile((p) => ({ ...p, contactNumber: e.target.value }))}
+                onChange={(e) =>
+                  setProfile((p) => ({ ...p, contactNumber: e.target.value }))
+                }
                 placeholder="Ej. +57 300 123 4567"
                 className="mt-1 h-11 w-full rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60"
               />

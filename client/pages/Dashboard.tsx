@@ -18,19 +18,25 @@ const MOCK: Member[] = [
     full_name: "Ana López",
     email: "ana@example.com",
     phone: "5551112233",
-    membership_expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15).toISOString(),
+    membership_expires_at: new Date(
+      Date.now() + 1000 * 60 * 60 * 24 * 15,
+    ).toISOString(),
   },
   {
     full_name: "Carlos Pérez",
     email: "carlos@example.com",
     phone: "5559998877",
-    membership_expires_at: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(),
+    membership_expires_at: new Date(
+      Date.now() - 1000 * 60 * 60 * 24 * 3,
+    ).toISOString(),
   },
   {
     full_name: "María García",
     email: "maria@example.com",
     phone: "5552223344",
-    membership_expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 45).toISOString(),
+    membership_expires_at: new Date(
+      Date.now() + 1000 * 60 * 60 * 24 * 45,
+    ).toISOString(),
   },
 ];
 
@@ -75,7 +81,9 @@ export default function Dashboard() {
       } else {
         let query = supabase
           .from("members")
-          .select("full_name,email,phone,membership_expires_at,expiration_date");
+          .select(
+            "full_name,email,phone,membership_expires_at,expiration_date",
+          );
         if (name) query = query.eq("full_name", name);
         if (email) query = query.eq("email", email);
         if (phone) query = query.eq("phone", phone);
@@ -120,28 +128,40 @@ export default function Dashboard() {
         </h1>
         {!hasSupabaseConfig ? (
           <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
-            Modo demo activo: sin conexión a base de datos. Los resultados se muestran con datos simulados.
+            Modo demo activo: sin conexión a base de datos. Los resultados se
+            muestran con datos simulados.
           </div>
         ) : null}
 
         <div className="mb-6 rounded-2xl border bg-white p-4 shadow-sm flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             {ally.avatarDataUrl ? (
-              <img src={ally.avatarDataUrl} alt="Avatar del comercio" className="h-14 w-14 rounded-xl object-cover border" />
+              <img
+                src={ally.avatarDataUrl}
+                alt="Avatar del comercio"
+                className="h-14 w-14 rounded-xl object-cover border"
+              />
             ) : (
               <div className="h-14 w-14 rounded-xl bg-gray-100 border grid place-items-center text-xl font-bold text-gray-500">
                 {(ally.businessName || "A").charAt(0)}
               </div>
             )}
             <div>
-              <p className="text-xs uppercase tracking-wide text-gray-500">Mi comercio</p>
-              <p className="text-lg font-semibold">{ally.businessName || "Aliado Synergy"}</p>
+              <p className="text-xs uppercase tracking-wide text-gray-500">
+                Mi comercio
+              </p>
+              <p className="text-lg font-semibold">
+                {ally.businessName || "Aliado Synergy"}
+              </p>
               {ally.contactNumber ? (
                 <p className="text-sm text-gray-600">{ally.contactNumber}</p>
               ) : null}
             </div>
           </div>
-          <Link to="/perfil" className="inline-flex items-center rounded-xl border px-4 py-2 font-semibold hover:bg-gray-50">
+          <Link
+            to="/perfil"
+            className="inline-flex items-center rounded-xl border px-4 py-2 font-semibold hover:bg-gray-50"
+          >
             Editar perfil
           </Link>
         </div>
