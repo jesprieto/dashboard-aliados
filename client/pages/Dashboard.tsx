@@ -269,20 +269,20 @@ export default function Dashboard() {
 
         {/* Buscar miembro */}
         <h2 className="text-2xl font-extrabold tracking-tight mb-2">Buscar miembro</h2>
-        <form onSubmit={onSearch} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end bg-white p-4 rounded-2xl border shadow-sm mb-6">
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Nombre</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre exacto" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+        <form onSubmit={onSearch} className="flex items-end gap-3 bg-white p-3 rounded-xl border shadow-sm mb-4 overflow-x-auto">
+          <div className="flex flex-col gap-1 min-w-[200px]">
+            <label className="text-xs font-medium text-gray-700">Nombre</label>
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre exacto" className="h-10 rounded-lg border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
           </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Correo</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          <div className="flex flex-col gap-1 min-w-[220px]">
+            <label className="text-xs font-medium text-gray-700">Correo</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" className="h-10 rounded-lg border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
           </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">Teléfono</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="5551234567" className="h-11 rounded-xl border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          <div className="flex flex-col gap-1 min-w-[180px]">
+            <label className="text-xs font-medium text-gray-700">Teléfono</label>
+            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="5551234567" className="h-10 rounded-lg border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
           </div>
-          <button type="submit" className="h-11 rounded-xl bg-jonquil text-black font-semibold hover:brightness-95 transition-colors" disabled={loading}>{loading ? "Buscando..." : "Buscar"}</button>
+          <button type="submit" className="h-10 rounded-lg bg-jonquil text-black font-semibold px-4 hover:brightness-95 transition-colors" disabled={loading}>{loading ? "Buscando..." : "Buscar"}</button>
         </form>
 
         {/* KPIs */}
