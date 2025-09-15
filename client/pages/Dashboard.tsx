@@ -4,7 +4,7 @@ import { supabase, hasSupabaseConfig } from "@/lib/supabase";
 import { differenceInCalendarDays, format } from "date-fns";
 import { loadProfile } from "@/lib/profile";
 import { Link } from "react-router-dom";
-import { CalendarDays, Star } from "lucide-react";
+import { CalendarDays, Star, User, Mail, Phone } from "lucide-react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -270,19 +270,22 @@ export default function Dashboard() {
         {/* Buscar miembro */}
         <h2 className="text-2xl font-extrabold tracking-tight mb-2">Buscar miembro</h2>
         <form onSubmit={onSearch} className="flex items-end gap-3 bg-white p-3 rounded-xl border shadow-sm mb-4 overflow-x-auto">
-          <div className="flex flex-col gap-1 min-w-[200px]">
-            <label className="text-xs font-medium text-gray-700">Nombre</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre exacto" className="h-10 rounded-lg border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          <div className="relative flex flex-col gap-1 min-w-[200px]">
+            <label className="sr-only">Nombre</label>
+            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre exacto" className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[200px]" />
           </div>
-          <div className="flex flex-col gap-1 min-w-[220px]">
-            <label className="text-xs font-medium text-gray-700">Correo</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" className="h-10 rounded-lg border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          <div className="relative flex flex-col gap-1 min-w-[220px]">
+            <label className="sr-only">Correo</label>
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[220px]" />
           </div>
-          <div className="flex flex-col gap-1 min-w-[180px]">
-            <label className="text-xs font-medium text-gray-700">Teléfono</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="5551234567" className="h-10 rounded-lg border px-3 outline-none focus:ring-2 focus:ring-jonquil/60" />
+          <div className="relative flex flex-col gap-1 min-w-[180px]">
+            <label className="sr-only">Teléfono</label>
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="5551234567" className="h-10 rounded-lg border pl-9 pr-3 outline-none focus:ring-2 focus:ring-jonquil/60 min-w-[180px]" />
           </div>
-          <button type="submit" className="h-10 rounded-lg bg-jonquil text-black font-semibold px-4 hover:brightness-95 transition-colors" disabled={loading}>{loading ? "Buscando..." : "Buscar"}</button>
+          <button type="submit" className="h-10 rounded-lg bg-jonquil text-black font-semibold px-4 hover:brightness-95 transition-colors whitespace-nowrap" disabled={loading}>{loading ? "Buscando..." : "Buscar"}</button>
         </form>
 
         {/* KPIs */}
@@ -301,23 +304,23 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Charts grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <div className="rounded-2xl border bg-white shadow-sm p-6">
-            <p className="mb-4 font-semibold">Validaciones por semana</p>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={lineData} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="label" />
-                  <YAxis allowDecimals={false} />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="count" stroke="hsl(var(--jonquil))" strokeWidth={3} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
+        {/* Charts grid: two columns, right is narrow */}
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border bg-white shadow-sm p-6">
+              <p className="mb-4 font-semibold">Validaciones por semana</p>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={lineData} margin={{ top: 5, right: 10, bottom: 0, left: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="label" />
+                    <YAxis allowDecimals={false} />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="count" stroke="hsl(var(--jonquil))" strokeWidth={3} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-6">
             <div className="rounded-2xl border bg-white shadow-sm p-6">
               <p className="mb-4 font-semibold">Mapa de calor: Visitas por día y hora</p>
               <div className="grid" style={{ gridTemplateColumns: `auto repeat(${heatmap.hours.length}, minmax(0, 1fr))` }}>
@@ -341,20 +344,20 @@ export default function Dashboard() {
                 ))}
               </div>
             </div>
-            <div className="rounded-2xl border bg-white shadow-sm p-6">
-              <p className="mb-4 font-semibold">Comparativo con el promedio</p>
-              <div className="h-40">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={comparison}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis allowDecimals={false} />
-                    <Tooltip />
-                    <Bar dataKey="Yo" fill="hsl(var(--jonquil))" radius={[6, 6, 0, 0]} />
-                    <Bar dataKey="Promedio" fill="hsl(var(--aureolin))" radius={[6, 6, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
+          </div>
+          <div className="rounded-2xl border bg-white shadow-sm p-6 w-full xl:w-[320px]">
+            <p className="mb-4 font-semibold">Comparativo con el promedio</p>
+            <div className="h-40">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={comparison}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Bar dataKey="Yo" fill="hsl(var(--jonquil))" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="Promedio" fill="hsl(var(--aureolin))" radius={[6, 6, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
