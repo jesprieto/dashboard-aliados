@@ -1,5 +1,5 @@
 /** @import must precede all other statements */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -57,6 +57,10 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Brand utility colors */
+    --jonquil: 49 100% 50%; /* #ffd100 */
+    --jet: 120 3% 20%; /* #333533 approx in HSL */
   }
 
   .dark {
@@ -95,6 +99,9 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --jonquil: 49 100% 50%;
+    --jet: 120 3% 20%;
   }
 }
 
@@ -104,6 +111,6 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 }
